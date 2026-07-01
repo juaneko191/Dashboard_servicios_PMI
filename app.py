@@ -385,14 +385,25 @@ st.dataframe(
     hide_index=True
 )
 
+from io import BytesIO
+
 # =====================================================
-# BOTÓN DE DESCARGA
+# BOTÓN DE DESCARGA EN EXCEL
 # =====================================================
-csv = tabla_mostrar.to_csv(index=False).encode("utf-8-sig")
+output = BytesIO()
+
+with pd.ExcelWriter(output, engine="openpyxl") as writer:
+    tabla_mostrar.to_excel(
+        writer,
+        index=False,
+        sheet_name="Tabla filtrada"
+    )
+
+excel_data = output.getvalue()
 
 st.download_button(
-    label="Descargar tabla filtrada",
-    data=csv,
-    file_name="tabla_filtrada_pmi.csv",
-    mime="text/csv"
+    label="Descargar tabla filtrada en Excel",
+    data=excel_data,
+    file_name="tabla_filtrada_pmi.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
