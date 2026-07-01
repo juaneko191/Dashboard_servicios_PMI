@@ -335,6 +335,7 @@ columnas_tabla = [
     "ID OPMI",
     "CODIGOUNICO",
     "CODIGOIDEA",
+    "NOMBREINVERSION",
     "PMI2026",
     "PMI2027",
     "PMI2028",
@@ -344,13 +345,34 @@ columnas_tabla = [
     "ID_SERVICIO",
     "SERVICIO",
     "ORDEN",
-    "CONDICIONINVERSION",
-    "NOMBREINVERSION"
+    "CONDICIONINVERSION"
 ]
 
 columnas_existentes = [col for col in columnas_tabla if col in df_filtrado.columns]
 
 tabla_mostrar = df_filtrado[columnas_existentes].copy()
+
+# =====================================================
+# ALIAS DE COLUMNAS PARA MOSTRAR EN LA TABLA
+# =====================================================
+alias_columnas = {
+    "ID OPMI": "ID OPMI",
+    "CODIGOUNICO": "CUI",
+    "CODIGOIDEA": "Código Idea",
+    "NOMBREINVERSION": "Nombre de la inversión",
+    "PMI2026": "PMI 2026",
+    "PMI2027": "PMI 2027",
+    "PMI2028": "PMI 2028",
+    "PMI2029": "PMI 2029",
+    "PIM 2026": "PIM 2026",
+    "DEVENGADO 2026": "Devengado 2026",
+    "ID_SERVICIO": "ID Servicio",
+    "SERVICIO": "Servicio",
+    "ORDEN": "Prioridad del servicio",
+    "CONDICIONINVERSION": "Prelación"
+}
+
+tabla_mostrar = tabla_mostrar.rename(columns=alias_columnas)
 
 # =====================================================
 # MOSTRAR TABLA
